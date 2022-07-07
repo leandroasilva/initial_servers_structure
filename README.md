@@ -58,8 +58,10 @@ docker-compose up -d
 ```
 
 ### Informações adicionais
+1) Ao direcionar o dominio dentro da pasta do nginx, nao esquecer de criar um link simbolico dos arquivos do sites-available na pasta sites-enabled usando
+o comando `ln -s ../sites-available/* .` de dentro da pasta sites_enabled para que os dominios fiquem ativos.
 
-O serviço de DNS do domínio escolhido pode ser feito da forma que acharem melhor, eu sugiro a utilização do cloudflare, pois eles tem um serviço completo incluindo certificados SSL.
+2) O serviço de DNS do domínio escolhido pode ser feito da forma que acharem melhor, eu sugiro a utilização do cloudflare, pois eles tem um serviço completo incluindo certificados SSL.
 
 Para qualquer dúvida, sugestão ou questionamento estou disponível para contado por meio do e-mail: halk_lenson@hotmail.com
 
