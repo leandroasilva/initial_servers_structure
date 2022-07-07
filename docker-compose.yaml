@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  reverse:
+    container_name: reverse_proxy
+    hostname: reverse_proxy
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx:/etc/nginx
+      - ./ssl:/etc/ssl/private
+    restart: unless-stopped
+
+  portainer:
+    container_name: portainer
+    hostname: portainer
+    image: portainer/portainer-ce:latest
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+      - URL=example.com
+      - SUBDOMAINS=wildcard,
+      - VALIDATION=dns
+      - DNSPLUGIN=cloudflare
+      - EMAIL=email@example.com
+      - DHLEVEL=4096
+    volumes:
+      - ./config:/config
+    restart: unless-stopped
+
+volumes:
+  portainer_data:
+  etc-nginx:
+  ssl-nginx:
